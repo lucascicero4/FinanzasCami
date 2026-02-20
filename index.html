@@ -193,8 +193,9 @@ svg use{stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stro
 .tab-label{font-size:10px;font-weight:500;color:var(--text-tertiary);transition:all .25s}
 .tab-item.active .tab-icon{color:var(--pink-500)}.tab-item.active .tab-label{color:var(--pink-500);font-weight:600}
 
-.fab{position:fixed;bottom:calc(var(--tab-height)+var(--safe-bottom)+28px);right:18px;width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(255,107,138,.35);cursor:pointer;z-index:90;border:none;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s}
-.fab svg{width:20px;height:20px;stroke:white;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.fab{position:fixed;bottom:calc(var(--tab-height)+var(--safe-bottom)+28px);right:18px;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--pink-400),var(--pink-500));color:white;display:none;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(255,107,138,.35);cursor:pointer;z-index:90;border:none;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s}
+.fab.visible{display:flex}
+.fab svg{width:18px;height:18px;stroke:white;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .fab:active{transform:scale(.88) rotate(90deg)}
 .fab.hidden{transform:translateY(calc(100% + 60px));opacity:0}
 
@@ -460,7 +461,7 @@ function getCardItems(ref,card){const r=[];D.tarjetas.forEach(item=>expandInst(i
 const pages=['resumen','movimientos','tarjetas','ahorro','dashboard'];
 let curPage=0,movMonth=new Date(),cardMonth=new Date(),curCard='visa',movFilterVal='todos',dashYear=new Date().getFullYear();
 
-function switchTab(i){curPage=i;document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('active',j===i));document.querySelectorAll('.tab-item').forEach((t,j)=>t.classList.toggle('active',j===i));render();}
+function switchTab(i){curPage=i;document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('active',j===i));document.querySelectorAll('.tab-item').forEach((t,j)=>t.classList.toggle('active',j===i));document.querySelector('.fab').classList.toggle('visible',i===1);render();}
 function render(){if(cfg.nombre){document.getElementById('userName').textContent=cfg.nombre;document.getElementById('userAvatar').textContent=cfg.nombre.charAt(0).toUpperCase();}switch(curPage){case 0:renderResumen();break;case 1:renderMov();break;case 2:renderCards();break;case 3:renderAhorro();break;case 4:renderDash();break;}}
 
 // RESUMEN: balance = ingresos - gastos mov - tarjeta cuotas A PAGAR ESTE MES
